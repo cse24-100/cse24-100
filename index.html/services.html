@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Botho Hair Boutique - Services</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.j<sdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    /* Custom Styles */
+    h2 {
+      text-align: center;
+      font-family:playball;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color:#b0b0b084  ;
+    }
+    /* Navbar Styling */
+     .navbar {
+     background-color: #4a4a4a; /* Dark Gray */
+    }
+
+
+    .navbar-brand, .nav-link {
+      color: white !important;
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+    }
+
+    .navbar-nav .nav-link:hover {
+      background-color:#b0b0b0;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    } /* Footer */
+    .footer {
+      background-color: #4a4a4a  ;
+      color: white;
+      text-align: center;
+      padding: 5px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+    </style>
+
+</head>
+<body>
+
+<!-- NAVIGATION BAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Botho Hair Boutique</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="services.html">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="treatment.html">Hair Treatments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="products.html"> Hair Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="booking.html">Booking</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="feedback.html">Feedback</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container mt-5">
+  <h2 class="mb-4"> PLAITING SERVICES</h2>
+  <div class="row">
+    <!-- Card 1 -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Brizilian 16 inches fix and supply</h4>
+          <p class="card-text">1h 30 mins |P800</p>
+          <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+          <button onclick="toggleSelect(this, 'Brizilian 16 inches', 800)" class="btn btn-primary">Select</button>
+        </div>
+      </div>
+    </div>
+
+     <!-- Card 2 -->
+     <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Invisible locs fix and supply</h4>
+            <p class="card-text">2h 20 mins |P500</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+               <button onclick="toggleSelect(this, 'Invisible locs', 200)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 3 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">French curls-knotless fix and supply</h4>
+            <p class="card-text">2h |P500</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'French curls-knotless', 500)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 4 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Carrot straight back</h4>
+            <p class="card-text">1h 15min |from P200</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'Carrot', 200)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 5 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Carrot puff</h4>
+            <p class="card-text">1h 30 mins |from P250 normal length</p>
+            <a href="booking.html" class="btn btn-primary select-btn">Select</a>
+            <button onclick="toggleSelect(this, 'Carrot puff', 250)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 6 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Lemonade Carrot</h4>
+            <p class="card-text">1h 30 mins |Price varies from P300</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'Lemonade carrot', 300)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 7 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Singles</h4>
+            <p class="card-text">2h | From P200</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'singles', 200)" class="btn btn-primary">Select</button>
+            
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 8 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Carrot with singles</h4>
+            <p class="card-text">2 h |P280</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'carrot with singles', 280)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 9 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Hairwash</h4>
+            <p class="card-text">30 mins |P50 and P40</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'Hair wash', 50)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 10 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Puff gel</h4>
+            <p class="card-text">30 mins|P180.</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'puff gel', 180)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 11 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Retouching</h4>
+            <p class="card-text">30mins |P130</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'Retouching', 130)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 12 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Natural twists</h4>
+            <p class="card-text">45 mins |P150.</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'Natural twists', 150)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 13 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Knotless braids</h4>
+            <p class="card-text">2h 30 mins|P300</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'knotless braids', 300)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 14 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Goddess Braids</h4>
+            <p class="card-text">2h 30 mins |P350.</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'goddess braids', 350)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 15 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Sew-In synthetic fix &supply</h4>
+            <p class="card-text">1h 30 mins |P350</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'Sew-In', 350)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 16 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Sew-In with closure</h4>
+            <p class="card-text">1h |P500.</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'closure Sew-In', 500)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 17 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Undo any hairstyle</h4>
+            <p class="card-text">30 mins |Price varies form P30.</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'undo', 30)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 18 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Renewal knotless and Fauxlocs</h4>
+            <p class="card-text">55 mins | Price varies</p>
+            <a href="booking.html" class="btn btn-primary select-btn" >book now</a>
+            <button onclick="toggleSelect(this, 'Renewal', 200)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 19 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Mohawk Style</h4>
+            <p class="card-text">1h |P300</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'Mohawk', 300)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 20 -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Natural hair hairstyles</h4>
+            <p class="card-text">1h 30 mins | Price varies</p>
+            <a href="booking.html" class="btn btn-primary select-btn">book now</a>
+            <button onclick="toggleSelect(this, 'natural hair', 200)" class="btn btn-primary">Select</button>
+          </div>
+        </div>
+      </div>
+    </div> <!-- End of .container -->
+    <script>
+      const selectedServices = {}; // Holds selected services
+    
+      // Called when Select button is clicked
+      function toggleSelect(button, title, price) {
+        const card = button.closest(".card");
+        let qtyControls = card.querySelector(".qty-controls");
+    
+        // If already selected, remove
+        if (selectedServices[title]) {
+          delete selectedServices[title];
+          qtyControls.remove(); // Remove quantity controls
+          button.textContent = "Select";
+          button.classList.remove("btn-danger");
+          button.classList.add("btn-primary");
+        } else {
+          // Add to selectedServices with quantity
+          selectedServices[title] = { price: price, qty: 1 };
+    
+          // Create quantity controls
+          qtyControls = document.createElement("div");
+          qtyControls.className = "qty-controls mt-2";
+          qtyControls.innerHTML = `
+            <button onclick="changeQty('${title}', -1)" class="btn btn-sm btn-secondary">-</button>
+            <span class="mx-2" id="qty-${title}">1</span>
+            <button onclick="changeQty('${title}', 1)" class="btn btn-sm btn-secondary">+</button>
+          `;
+          card.appendChild(qtyControls);
+    
+          button.textContent = "Remove";
+          button.classList.remove("btn-primary");
+          button.classList.add("btn-danger");
+        }
+    
+        updateContinueButton();
+      }
+    
+      // Update quantity for a service
+      function changeQty(title, delta) {
+        const service = selectedServices[title];
+        if (!service) return;
+    
+        service.qty += delta;
+        if (service.qty <= 0) {
+          delete selectedServices[title];
+          const card = [...document.querySelectorAll(".card")].find(c => 
+            c.querySelector("h5").textContent === title
+          );
+          if (card) {
+            const btn = card.querySelector(".btn");
+            btn.textContent = "Select";
+            btn.classList.remove("btn-danger");
+            btn.classList.add("btn-primary");
+            card.querySelector(".qty-controls").remove();
+          }
+        } else {
+          document.getElementById(`qty-${title}`).textContent = service.qty;
+        }
+    
+        updateContinueButton();
+      }
+    
+      // Create or remove the Continue button
+      function updateContinueButton() {
+        const hasSelection = Object.keys(selectedServices).length > 0;
+        let btn = document.getElementById('continue-to-booking');
+    
+        if (hasSelection && !btn) {
+          btn = document.createElement('a');
+          btn.id = 'continue-to-booking';
+          btn.href = 'booking.html';
+          btn.className = 'btn btn-success btn-lg mt-4 d-block';
+          btn.textContent = 'Continue to Booking';
+          document.querySelector('.container').appendChild(btn);
+        } else if (!hasSelection && btn) {
+          btn.remove();
+        }
+      }
+    </script>
+    
+    
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>&copy; 2025 Botho Hair Boutique. All rights reserved.</p>
+    </div>
+
+</body>
+</html>
+

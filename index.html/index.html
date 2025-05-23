@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Botho Hair Boutique</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Custom Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color:#b0b0b0  ;
+    }
+    /* Navbar Styling */
+     .navbar {
+     background-color: #4a4a4a; /* Dark Gray */
+    }
+
+
+    .navbar-brand, .nav-link {
+      color: white !important;
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+    }
+
+    .navbar-nav .nav-link:hover {
+      background-color:#b0b0b0;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hero Section */
+    .hero-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 50px;
+      background: linear-gradient(135deg, #ff66b2, #ff99cc);
+      color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-text {
+      flex: 1;
+      padding-left: 50px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    .hero-container img {
+      max-width: 450px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    /* Carousel Styling */
+    .carousel-inner img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 20px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    /* Service Cards */
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.1s ease;
+    }
+
+    .card img {
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 2px solid #d6336c;
+    }
+
+    .btn-custom {
+      background-color:#4a4a4a; 
+      color: white;
+      font-weight: bold;
+      border-radius: 30px;
+      padding: 10px 20px;
+      text-transform: uppercase;
+    }
+
+    .btn-custom:hover {
+      background-color:#b0b0b0; 
+    }
+
+    .service-card {
+      margin-bottom: 30px;
+      border: 2px solid #ddd;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #4a4a4a  ;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    /* Review Section */
+    .review-box {
+      border: 2px solid #ddd;
+      padding: 20px;
+      background-color:#fff ;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .review-box img {
+      max-width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Botho Hair Boutique</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="services.html">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="treatment.html">Hair Treatment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="products.html">Hair Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="booking.html">Booking</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+            <li class="nav-item">
+              <a class="nav-link" href="feedback.html">Feedback</a>
+            </li>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="growth.jpg" class="d-block w-100" alt="Hairwash care">
+        <div class="carousel-caption">
+          <h5>Premium Hair Growth Products</h5>
+          <p>Achieve healthy, beautiful hair with our exclusive range of products.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+          <img src="second.webp" class="d-block w-100" alt="ladies with good hair">
+        <div class="carousel-caption">
+          <h5>Elegant Plaiting Services</h5>
+          <p>Get your perfect look today with our expert plaiting services.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="hair-salon.avif" class="d-block w-100" alt="long hair">
+        <div class="carousel-caption">
+          <h5>Hair Treatments for All</h5>
+          <p>Explore our specialized hair treatments for every hair type.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="lovehair.webp" class="d-block w-100" alt="neat hair sytles">I
+        <div class="carousel-caption">
+          <h5>Have a good haircare Maintenance day</h5>
+          <p>Experience the best neat, clean hairstyles that are pain-free and relaxing.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  
+  <div class="container">
+    <h2 class="text-center my-5">Our Services</h2>
+    <div class="row">
+      <div class="col-md-4 service-card">
+        <div class="card">
+          <img src="salon.jpeg" class="card-img-top" alt="Service 1">
+          <div class="card-body">
+            <h5 class="card-title">Plaiting Services</h5>
+            <p class="card-text">Get your hair plaited by experts who know how to give you a unique and beautiful look.</p>
+            <a href="services.html" class="btn btn-custom">See More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 service-card">
+        <div class="card">
+          <img src="treat.jpeg" class="card-img-top" alt="Service 2">
+          <div class="card-body">
+            <h5 class="card-title">Hair Growth Products</h5>
+            <p class="card-text">Our products are designed to promote healthy hair growth and vitality.</p>
+            <a href="products.html" class="btn btn-custom">Shop Now</a>
+          </div>
+        </div>
+      </div> 
+      <div class="col-md-4 service-card">
+        <div class="card">
+          <img src="photo.jpeg" class="card-img-top" alt="Service 3">
+          <div class="card-body">
+            <h5 class="card-title">Hair Treatments</h5>
+            <p class="card-text">Relax and revitalize with our special hair treatments tailored to your needs.</p>
+            <a href="treatment.html" class="btn btn-custom">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+      
+  <section id="reviews" class="py-5 text-center" style="background-color:#b0b0b0 ">
+    <div class="container">
+        <h2 class=>Customer Reviews</h2>
+
+        <!-- Plaiting Reviews -->
+        <h3 class="text-secondary mt-3">Plaiting Reviews</h3>
+        <div class="row g-3">
+            <div class="col-md-4 review-box">
+                <img src="braids.jpeg" class="rounded-circle img-fluid" alt="Plaited Hair 1">
+                <p>"I love my braids! They are neat and lasted for weeks!"</p>
+                <h6 class="text-muted">- Amanda</h6>
+            </div>
+            <div class="col-md-4 review-box">
+                <img src="fulani.jpeg" class="rounded-circle img-fluid" alt="Plaited Hair 2">
+                <p>"Best salon experience! My hair looks amazing!"</p>
+                <h6 class="text-muted">- Jessica</h6>
+            </div>
+            <div class="col-md-4 review-box">
+                <img src="straight back.jpeg" class="rounded-circle img-fluid" alt="Plaited Hair 3">
+                <p>"Very professional service. Highly recommend!"</p>
+                <h6 class="text-muted">- Tumi</h6>
+            </div>
+        </div>
+
+        <!-- Hair Growth Before & After -->
+        <h3 class="text-secondary mt-5">Hair Growth Results</h3>
+        <div class="row g-3">
+            <div class="col-md-6 review-box">
+                <img src="thinning.jpeg" class="rounded img-fluid" alt="Before Hair Growth">
+                <p>"Before using the hair growth treatment, my hair was thinning."</p>
+            </div>
+            <div class="col-md-6 review-box">
+                <img src="thick.jpeg" class="rounded img-fluid" alt="After Hair Growth">
+                <p>"After 3 months, look at the incredible results! My hair feels thicker and stronger."</p>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 Botho Hair Boutique. All rights reserved.</p>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

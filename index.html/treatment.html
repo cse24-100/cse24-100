@@ -1,0 +1,260 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hair Treatments - Botho Hair Boutique</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #f5e4e278, #f7f7f770);
+      font-family: 'Poppins', sans-serif;
+      background-color: dimgray;
+    }
+
+    .navbar {
+      background-color: #4a4a4a;
+    }
+
+    .navbar-brand, .nav-link {
+      color: white !important;
+      font-weight: bold;
+    }
+
+    .nav-link:hover {
+      background-color: #b0b0b0;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .footer {
+      background-color: #4a4a4a;
+      color: white;
+      text-align: center;
+      padding: 5px;
+    }
+
+    .hero-treatment {
+      position: relative;
+      height: 80vh;
+      overflow: hidden;
+    }
+
+    .hero-treatment video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px 40px;
+      border-radius: 15px;
+    }
+
+    .cta-section {
+      background-color: #4a4a4a;
+      color: white;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .treatment-videos h2 {
+      text-align: center;
+      margin: 50px 0 20px;
+    }
+
+    .card img {
+      height: 250px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Botho Hair Boutique</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link active" href="treatment.html">Hair Treatments</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html">Hair Products</a></li>
+        <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO VIDEO -->
+<section class="hero-treatment">
+  <video autoplay muted loop playsinline>
+    <source src="salon2.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+</section>
+
+
+</section>
+
+<!-- TREATMENT CARDS -->
+<div class="container my-5">
+  <div class="row g-4 justify-content-center">
+    <!-- Card 1 -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="keratin.jpg" class="card-img-top" alt="Keratin Treatment">
+        <div class="card-body">
+          <h3 class="card-title">Keratin Treatment</h3>
+          <p class="card-text">
+            <strong>Ideal for:</strong> Frizzy, unmanageable hair<br>
+            <strong>What it does:</strong> Smooths the hair, reduces frizz, and makes styling easier for up to 3 months.<br>
+            <strong>Prices:</strong>P250
+          </p>
+          <a href="booking.html" class="btn btn-dark">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="protien hair.jpg" class="card-img-top" alt="Protein Treatment">
+        <div class="card-body">
+          <h3 class="card-title">Protein Treatment</h3>
+          <p class="card-text">
+            <strong>Ideal for:</strong> Weak, damaged, or chemically-treated hair<br>
+            <strong>What it does:</strong> Replenishes keratin, strengthens strands, and reduces breakage.<br>
+            <strong>Price:</strong>P250
+          </p>
+          <a href="booking.html" class="btn btn-dark">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="deep condition.jpg" class="card-img-top" alt="Deep Conditioning Treatment">
+        <div class="card-body">
+          <h3 class="card-title">Deep Conditioning Treatment</h3>
+          <p class="card-text">
+            <strong>Ideal for:</strong> Dry, brittle hair<br>
+            <strong>What it does:</strong> Penetrates the hair shaft with intense moisture, leaving hair soft, shiny, and manageable.<br>
+            <strong>Price:</strong>P250
+          </p>
+          <a href="booking.html" class="btn btn-dark">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second row -->
+  <div class="row g-4 justify-content-center mt-4">
+    <!-- Card 4 -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="hot oil.jpg" class="card-img-top" alt="Hot Oil Treatment">
+        <div class="card-body">
+          <h3 class="card-title">Hot Oil Treatment</h3>
+          <p class="card-text">
+            <strong>Ideal for:</strong> Dull, frizzy, or heat-damaged hair<br>
+            <strong>What it does:</strong> Seals cuticles, adds shine, and boosts softness with nourishing oils like argan or coconut.<br>
+            <strong>Price:</strong>P250
+          </p>
+          <a href="booking.html" class="btn btn-dark">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="scalp.jpg" class="card-img-top" alt="Scalp Detox">
+        <div class="card-body">
+          <h3 class="card-title">Scalp Detox</h3>
+          <p class="card-text">
+            <strong>Ideal for:</strong> Oily scalp, product buildup, or dandruff<br>
+            <strong>What it does:</strong> Deep cleanses and exfoliates the scalp, encouraging healthier hair growth.<br>
+            <strong>Price:</strong>P250
+          </p>
+          <a href="booking.html" class="btn btn-dark">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 (Hair Microneedling) -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img src="microneedling.avif" class="card-img-top" alt="Hair Microneedling">
+        <div class="card-body">
+          <h3 class="card-title">Hair Microneedling</h3>
+          <p class="card-text">
+            <strong>Ideal for:</strong> Thinning hair, slow growth, or hair loss<br>
+            <strong>What it does:</strong> Stimulates hair follicles by creating micro-injuries on the scalp, increasing collagen and boosting growth. Often paired with serums or PRP.<br>
+         <strong>Price:</strong>P250
+          </p>
+          <a href="booking.html" class="btn btn-dark">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+<!-- VIDEO SECTION -->
+<section class="treatment-videos container">
+  <h2>Watch Our Process</h2>
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <muted>
+      <video controls width="100%">
+        <source src="background" type="video/mp4">
+      </video>
+      <p class="text-center">Hot Oil Treatment</p>
+    </div>
+    <div class="col-md-6 mb-4">
+      <video controls width="70%">
+        <source src="micro.mp4" type="video/mp4">
+      </video>
+      <p class="text-center">Microneedling Hair Treatment</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Not sure which treatment is right for you?</h2>
+  <p>Book a free consultation and let our experts guide you.</p>
+  <a href="booking.html" class="btn btn-light">Book Now</a>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>&copy; 2025 Botho Hair Boutique. All rights reserved.</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Page with Calendar</title>
+  <style>
+    /* Base styles */
+    body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #c9bebe7e !important; /* Light gray background */
+  color: #3c3b3b;
+  padding: 30px;
+  font-size: 18px;
+  margin: 0;
+}
+
+    h1 {
+      font-size: 36px;
+      text-align: center;
+      color: #222;
+      margin-bottom: 30px;
+    }
+
+    /* Updated navbar styles */
+    .navbar {
+  position: fixed; /* Or use 'sticky' for scroll effects */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #514f4f;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  z-index: 1000; /* Ensures it stays on top */
+}
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .navbar-brand {
+      color: #fff;
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .navbar-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;     /* roomy gap */
+      margin: 0;
+      padding: 0;
+    }
+    .navbar-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 400;
+      padding: 0 0;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .navbar-links a:hover {
+      background-color: #b0b0b0;
+      color: #656161;
+    }
+
+    /* Calendar, slots, form */
+    #calendarContainer, #timeslots, #contactForm {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #ffffff65;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-in-out;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 60px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .calendar div {
+      text-align: center;
+      padding: 15px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      background-color: #fafafa;
+    }
+    .calendar div:hover {
+      background-color: #333;
+      color: white;
+      transform: scale(1.05);
+    }
+    .calendar div.header {
+      background-color: #444;
+      color: white;
+      font-weight: bold;
+      font-size: 22px;
+      cursor: default;
+      padding: 20px 0;
+      border-radius: 10px;
+    }
+    .calendar div.today {
+      background-color: #ccc;
+      font-weight: bold;
+    }
+    .calendar div.selected {
+      background-color: #999;
+      color: white;
+    }
+    #monthYear {
+      font-weight: bold;
+      font-size: 26px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #111;
+    }
+    .timeslot {
+      display: inline-block;
+      margin: 10px;
+      padding: 20px 25px;
+      border: 2px solid #555;
+      cursor: pointer;
+      border-radius: 10px;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      background-color: #eee;
+    }
+    .timeslot:hover {
+      background-color: #333;
+      color: white;
+      transform: scale(1.05);
+    }
+    .timeslot.booked {
+      background-color: #aaa;
+      color: #666;
+      pointer-events: none;
+    }
+    .timeslot.available {
+      background-color: #ddd;
+      color: #222;
+    }
+    #contactForm {
+      display: none;
+      margin-top: 30px;
+      background-color: #e0e0e0;
+      border-radius: 12px;
+      padding: 30px;
+    }
+    #contactForm input,
+    #contactForm textarea,
+    #contactForm select {
+      display: block;
+      margin: 15px 0;
+      padding: 12px;
+      width: 100%;
+      font-size: 18px;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      transition: border 0.3s ease;
+    }
+    #contactForm input:focus,
+    #contactForm textarea:focus,
+    #contactForm select:focus {
+      border-color: #333;
+    }
+    #submitBooking,
+    #changeTimeBtn {
+      padding: 15px 30px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      font-size: 20px;
+      transition: background-color 0.3s ease, transform 0.2s;
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+    #submitBooking:hover,
+    #changeTimeBtn:hover {
+      background-color: #555;
+      transform: scale(1.05);
+    }
+    #nextMonthBtn, #backToTodayBtn {
+      background-color: #111;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #nextMonthBtn:hover, #backToTodayBtn:hover {
+      background-color: #333;
+    }
+    .footer {
+      background-color: #4a4a4a;
+      color: white;
+      text-align: center;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-brand">Botho Hair Boutique</div>
+      <ul class="navbar-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="treatment.html">Hair Treatments</a></li>
+        <li><a href="products.html">Hair Products</a></li>
+        <li><a href="booking.html">Booking</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <h1>Book Your Appointment</h1>
+
+  <!-- Calendar Container -->
+  <div id="calendarContainer">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <div id="monthYear"></div>
+      <div>
+        <button id="backToTodayBtn" style="display:none;">⟵ Today</button>
+        <button id="nextMonthBtn">Next Month ➔</button>
+      </div>
+    </div>
+    <div class="calendar" id="calendar"></div>
+  </div>
+
+  <!-- Time Slots -->
+  <div id="timeslots"></div>
+
+  <!-- Contact Form -->
+  <div id="contactForm">
+    <h2>Enter Your Details</h2>
+    <select id="bookingType" required>
+      <option value="">-- Select Booking Type --</option>
+      <option value="Hair Services">Hair Services</option>
+      <option value="Hair Treatment">Hair Treatment</option>
+    </select>
+    <input type="text" id="fullName" placeholder="Full Name" required>
+    <input type="email" id="email" placeholder="Email Address" required>
+    <textarea id="message" placeholder="Any message..."></textarea>
+    <div>
+      <button id="changeTimeBtn">Change Time</button>
+      <button id="submitBooking">Submit Booking</button>
+    </div>
+  </div>
+
+  <script>
+    const bookedSlots = {
+      "2025-04-28": ["10:00", "12:30"],
+      "2025-04-29": ["09:00", "13:00"],
+      "2025-05-02": ["11:00"],
+      "2025-05-03": ["12:00", "15:00"]
+    };
+    const availableTimes = ["09:00","10:00","11:00","12:00","12:30","13:00","14:00","15:00"];
+    const calendar = document.getElementById('calendar');
+    const monthYear = document.getElementById('monthYear');
+    const timeslotsDiv = document.getElementById('timeslots');
+    const contactForm = document.getElementById('contactForm');
+    let selectedDate = "", selectedTime = "";
+    const today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+
+    function renderCalendar(month, year) {
+      calendar.innerHTML = "";
+      monthYear.innerText = `${new Date(year, month).toLocaleString('default',{month:'long'})} ${year}`;
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(day => {
+        const dh = document.createElement('div');
+        dh.innerText = day;
+        dh.classList.add('header');
+        calendar.appendChild(dh);
+      });
+      for (let i = 0; i < firstDay; i++) {
+        calendar.appendChild(document.createElement('div'));
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(year, month, d);
+        const dateStr = date.toISOString().split('T')[0];
+        const div = document.createElement('div');
+        div.innerText = d;
+        if (dateStr < today.toISOString().split('T')[0]) {
+          div.style.pointerEvents = 'none';
+          div.style.backgroundColor = '#f5f5f5';
+          div.style.color = '#ccc';
+        }
+        if (dateStr === today.toISOString().split('T')[0]) {
+          div.classList.add('today');
+        }
+        div.addEventListener('click', () => {
+          selectedDate = dateStr;
+          document.querySelectorAll('.calendar div').forEach(cd => cd.classList.remove('selected'));
+          div.classList.add('selected');
+          showTimeSlots(selectedDate);
+        });
+        calendar.appendChild(div);
+      }
+      document.querySelectorAll('#calendarContainer, #timeslots, #contactForm')
+              .forEach(el => { el.style.opacity=1; el.style.transform="translateY(0)"; });
+    }
+
+    function showTimeSlots(date) {
+      timeslotsDiv.innerHTML = "";
+      const booked = bookedSlots[date] || [];
+      availableTimes.forEach(time => {
+        const slot = document.createElement('div');
+        slot.classList.add('timeslot', booked.includes(time) ? 'booked' : 'available');
+        slot.innerText = time;
+        slot.addEventListener('click', () => {
+          if (!slot.classList.contains('booked')) {
+            selectedTime = time;
+            timeslotsDiv.innerHTML = `<div>Selected Time: ${selectedTime}</div>`;
+            contactForm.style.display = 'block';
+          }
+        });
+        timeslotsDiv.appendChild(slot);
+      });
+    }
+
+    document.getElementById('nextMonthBtn').addEventListener('click', () => {
+      currentMonth = (currentMonth + 1) % 12;
+      if (currentMonth === 0) currentYear++;
+      renderCalendar(currentMonth, currentYear);
+      document.getElementById('backToTodayBtn').style.display = 'inline-block';
+    });
+    document.getElementById('backToTodayBtn').addEventListener('click', () => {
+      currentMonth = today.getMonth();
+      currentYear = today.getFullYear();
+      renderCalendar(currentMonth, currentYear);
+      document.getElementById('backToTodayBtn').style.display = 'none';
+    });
+    document.getElementById('changeTimeBtn').addEventListener('click', () => {
+      contactForm.style.display = 'none';
+      showTimeSlots(selectedDate);
+    });
+    document.getElementById('submitBooking').addEventListener('click', () => {
+      const type = document.getElementById('bookingType').value;
+      const name = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('message').value.trim();
+      if (!selectedDate || !selectedTime || !type || !name || !email) {
+        alert("Please fill in all required fields and select a date and time.");
+        return;
+      }
+      alert(`Booking Confirmed!\n\nName: ${name}\nEmail: ${email}\nDate: ${selectedDate}\nTime: ${selectedTime}\nType: ${type}\nMessage: ${msg}`);
+      contactForm.style.display = 'none';
+      timeslotsDiv.innerHTML = '';
+      document.getElementById('bookingType').value = '';
+      document.getElementById('fullName').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+      selectedDate = '';
+      selectedTime = '';
+      renderCalendar(currentMonth, currentYear);
+      document.getElementById('backToTodayBtn').style.display = 'none';
+    });
+
+    // Initial load
+    renderCalendar(currentMonth, currentYear);
+  </script>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>&copy; 2025 Botho Hair Boutique. All rights reserved.</p>
+</div>
+
+
+</body>
+</html>
