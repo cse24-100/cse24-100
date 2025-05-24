@@ -1,395 +1,614 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Booking Page with Calendar</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booking Page</title>
   <style>
-    /* Base styles */
-    body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #c9bebe7e !important; /* Light gray background */
-  color: #3c3b3b;
-  padding: 30px;
-  font-size: 18px;
-  margin: 0;
-}
-
-    h1 {
-      font-size: 36px;
-      text-align: center;
-      color: #222;
-      margin-bottom: 30px;
+    /* Base styles (your existing ones) */
+    * {
+      box-sizing: border-box;
     }
 
-    /* Updated navbar styles */
-    .navbar {
-  position: fixed; /* Or use 'sticky' for scroll effects */
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #514f4f;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 40px;
-  z-index: 1000; /* Ensures it stays on top */
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
 
     .navbar-container {
-      max-width: 1200px;
-      margin: 0 auto;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-    }
-    .navbar-brand {
-      color: #fff;
-      font-size: 25px;
-      font-weight: bold;
-    }
-    .navbar-links {
-      list-style: none;
-      display: flex;
-      gap: 25px;     /* roomy gap */
-      margin: 0;
-      padding: 0;
-    }
-    .navbar-links a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 400;
-      padding: 0 0;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-    .navbar-links a:hover {
-      background-color: #b0b0b0;
-      color: #656161;
+      align-items: center;
+      background-color: #000;
+      padding: 10px 30px;
+      color: white;
     }
 
-    /* Calendar, slots, form */
-    #calendarContainer, #timeslots, #contactForm {
-      margin-top: 30px;
-      padding: 20px;
-      background-color: #ffffff65;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease-in-out;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+    .navbar-brand {
+      font-size: 20px;
+      font-weight: bold;
     }
+
+    .navbar-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 18px;
+    }
+
+    .navbar-links a:hover {
+      color: #aaa;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 36px;
+      color: #333;
+    }
+
+    #calendarContainer {
+      max-width: 850px;
+      margin: 20px auto;
+      background-color: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .calendar-header h2 {
+      margin: 0;
+    }
+
     .calendar {
       display: grid;
-      grid-template-columns: repeat(7, 60px);
+      grid-template-columns: repeat(7, 1fr);
       grid-gap: 10px;
-      justify-content: center;
-      margin-top: 20px;
+      text-align: center;
     }
+
     .calendar div {
-      text-align: center;
-      padding: 15px;
-      cursor: pointer;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 20px;
-      transition: all 0.3s ease;
-      background-color: #fafafa;
-    }
-    .calendar div:hover {
-      background-color: #333;
-      color: white;
-      transform: scale(1.05);
-    }
-    .calendar div.header {
-      background-color: #444;
-      color: white;
-      font-weight: bold;
-      font-size: 22px;
-      cursor: default;
-      padding: 20px 0;
-      border-radius: 10px;
-    }
-    .calendar div.today {
-      background-color: #ccc;
-      font-weight: bold;
-    }
-    .calendar div.selected {
-      background-color: #999;
-      color: white;
-    }
-    #monthYear {
-      font-weight: bold;
-      font-size: 26px;
-      margin-bottom: 20px;
-      text-align: center;
-      color: #111;
-    }
-    .timeslot {
-      display: inline-block;
-      margin: 10px;
-      padding: 20px 25px;
-      border: 2px solid #555;
-      cursor: pointer;
-      border-radius: 10px;
-      font-size: 18px;
-      transition: all 0.3s ease;
+      padding: 15px 10px;
       background-color: #eee;
+      border-radius: 6px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s;
     }
-    .timeslot:hover {
+
+    .calendar div:hover:not(.disabled) {
+      background-color: #ccc;
+    }
+
+    .calendar .selected {
       background-color: #333;
       color: white;
-      transform: scale(1.05);
+      font-weight: bold;
     }
-    .timeslot.booked {
-      background-color: #aaa;
-      color: #666;
-      pointer-events: none;
+
+    .calendar .disabled {
+      background-color: #f9f9f9;
+      color: #bbb;
+      cursor: not-allowed;
     }
-    .timeslot.available {
+
+    #timeslots {
+      max-width: 850px;
+      margin: 20px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .timeslot {
+      padding: 12px 20px;
+      background-color: #eee;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      user-select: none;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .timeslot.selected {
+      background-color: #333;
+      color: white;
+    }
+
+    .timeslot.disabled {
       background-color: #ddd;
-      color: #222;
+      color: #999;
+      cursor: not-allowed;
     }
+
     #contactForm {
-      display: none;
-      margin-top: 30px;
-      background-color: #e0e0e0;
-      border-radius: 12px;
-      padding: 30px;
+      max-width: 850px;
+      margin: 30px auto 50px;
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
+
+    #contactForm label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
     #contactForm input,
     #contactForm textarea,
     #contactForm select {
-      display: block;
-      margin: 15px 0;
-      padding: 12px;
       width: 100%;
-      font-size: 18px;
-      border-radius: 8px;
-      border: 1px solid #aaa;
-      transition: border 0.3s ease;
+      padding: 12px 10px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      resize: vertical;
+      font-family: Arial, sans-serif;
     }
-    #contactForm input:focus,
-    #contactForm textarea:focus,
-    #contactForm select:focus {
-      border-color: #333;
+
+    #contactForm textarea {
+      min-height: 100px;
     }
-    #submitBooking,
-    #changeTimeBtn {
-      padding: 15px 30px;
+
+    #submitBooking {
+      display: block;
+      width: 100%;
       background-color: #333;
       color: white;
       border: none;
-      cursor: pointer;
-      border-radius: 10px;
+      padding: 15px;
       font-size: 20px;
-      transition: background-color 0.3s ease, transform 0.2s;
-      margin-top: 10px;
-      margin-right: 10px;
-    }
-    #submitBooking:hover,
-    #changeTimeBtn:hover {
-      background-color: #555;
-      transform: scale(1.05);
-    }
-    #nextMonthBtn, #backToTodayBtn {
-      background-color: #111;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 5px;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s;
+      font-weight: 700;
+    }
+
+    #submitBooking:hover {
+      background-color: #555;
+    }
+
+    #changeTimeBtn {
+      margin: 15px auto;
+      display: block;
+      background-color: #666;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-weight: 600;
+    }
+
+    #changeTimeBtn:hover {
+      background-color: #444;
+    }
+
+    /* Buttons for calendar navigation */
+    #nextMonthBtn, #backToTodayBtn {
+      background-color: #444;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-left: 10px;
+      transition: background-color 0.3s;
     }
     #nextMonthBtn:hover, #backToTodayBtn:hover {
-      background-color: #333;
+      background-color: #222;
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 850px) {
+      /* Navbar stack vertically and center */
+      .navbar-container {
+        flex-direction: column;
+        padding: 10px 20px;
+      }
+      .navbar-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 10px;
+      }
+
+      /* Calendar container and children full width */
+      #calendarContainer, #timeslots, #contactForm {
+        max-width: 100%;
+        padding: 15px;
+        margin: 20px 10px;
+      }
+
+      /* Calendar grid smaller gaps */
+      .calendar {
+        grid-template-columns: repeat(7, 1fr);
+        grid-gap: 5px;
+      }
+      .calendar div {
+        font-size: 14px;
+        padding: 8px 5px;
+      }
+
+      /* Time slots smaller and wrap */
+      #timeslots {
+        justify-content: flex-start;
+        gap: 10px;
+      }
+      .timeslot {
+        padding: 10px 15px;
+        font-size: 14px;
+        margin: 5px 5px;
+      }
+
+      /* Buttons smaller */
+      #submitBooking, #changeTimeBtn, #nextMonthBtn, #backToTodayBtn {
+        font-size: 16px;
+        padding: 10px 15px;
+      }
+
+      /* Form inputs full width with smaller padding */
+      #contactForm input,
+      #contactForm textarea,
+      #contactForm select {
+        font-size: 16px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      /* Navbar brand smaller */
+      .navbar-brand {
+        font-size: 20px;
+      }
+      /* Navbar links smaller */
+      .navbar-links a {
+        font-size: 14px;
+      }
+
+      /* Heading smaller */
+      h1 {
+        font-size: 28px;
+      }
+
+      /* Calendar divs smaller */
+      .calendar div {
+        font-size: 12px;
+        padding: 6px 3px;
+      }
+
+      /* Time slots smaller */
+      .timeslot {
+        padding: 8px 10px;
+        font-size: 12px;
+        margin: 3px 3px;
+      }
+      /* Footer */
     .footer {
-      background-color: #4a4a4a;
+      background-color: #4a4a4a  ;
       color: white;
       text-align: center;
-      padding: 5px;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+      /* Buttons smaller */
+      #submitBooking, #changeTimeBtn, #nextMonthBtn, #backToTodayBtn {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="navbar-container">
-      <div class="navbar-brand">Botho Hair Boutique</div>
-      <ul class="navbar-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="treatment.html">Hair Treatments</a></li>
-        <li><a href="products.html">Hair Products</a></li>
-        <li><a href="booking.html">Booking</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="feedback.html">Feedback</a></li>
-      </ul>
+  <div class="navbar-container">
+    <div class="navbar-brand">Botho Hair Boutique</div>
+    <div class="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="treatment.html"> Hair Treatment</a>
+      <a href="products.html"> Hair Products</a>
+      <a href="booking.html">Booking</a>
+      <a href="contact.html">Contact</a>
+      <a href="feedback.html">Feedback</a>
     </div>
-  </nav>
+  </div>
 
   <h1>Book Your Appointment</h1>
 
-  <!-- Calendar Container -->
   <div id="calendarContainer">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-      <div id="monthYear"></div>
+    <div class="calendar-header">
       <div>
-        <button id="backToTodayBtn" style="display:none;">⟵ Today</button>
-        <button id="nextMonthBtn">Next Month ➔</button>
+        <button id="backToTodayBtn" title="Back to Today">Today</button>
+      </div>
+      <h2 id="monthYear"></h2>
+      <div>
+        <button id="nextMonthBtn" title="Next Month">&gt;</button>
       </div>
     </div>
-    <div class="calendar" id="calendar"></div>
-  </div>
-
-  <!-- Time Slots -->
-  <div id="timeslots"></div>
-
-  <!-- Contact Form -->
-  <div id="contactForm">
-    <h2>Enter Your Details</h2>
-    <select id="bookingType" required>
-      <option value="">-- Select Booking Type --</option>
-      <option value="Hair Services">Hair Services</option>
-      <option value="Hair Treatment">Hair Treatment</option>
-    </select>
-    <input type="text" id="fullName" placeholder="Full Name" required>
-    <input type="email" id="email" placeholder="Email Address" required>
-    <textarea id="message" placeholder="Any message..."></textarea>
-    <div>
-      <button id="changeTimeBtn">Change Time</button>
-      <button id="submitBooking">Submit Booking</button>
+    <div class="calendar" id="calendar">
+      <!-- Calendar days will be generated here by JavaScript -->
     </div>
   </div>
 
+  <div id="timeslots">
+    <!-- Time slots will be generated here -->
+  </div>
+
+  <button id="changeTimeBtn" style="display:none;">Change Time</button>
+
+  <form id="contactForm" style="display:none;">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Your full name" required />
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" placeholder="+1234567890" required />
+
+    <label for="message">Additional Message</label>
+    <textarea id="message" name="message" placeholder="Any special requests or info..."></textarea>
+
+    <button type="submit" id="submitBooking">Confirm Booking</button>
+  </form>
+
   <script>
-    const bookedSlots = {
-      "2025-04-28": ["10:00", "12:30"],
-      "2025-04-29": ["09:00", "13:00"],
-      "2025-05-02": ["11:00"],
-      "2025-05-03": ["12:00", "15:00"]
-    };
-    const availableTimes = ["09:00","10:00","11:00","12:00","12:30","13:00","14:00","15:00"];
-    const calendar = document.getElementById('calendar');
-    const monthYear = document.getElementById('monthYear');
-    const timeslotsDiv = document.getElementById('timeslots');
+    // JavaScript code to generate calendar, timeslots, and handle interactions
+
+    const calendarEl = document.getElementById('calendar');
+    const monthYearEl = document.getElementById('monthYear');
+    const backToTodayBtn = document.getElementById('backToTodayBtn');
+    const nextMonthBtn = document.getElementById('nextMonthBtn');
+    const timeslotsEl = document.getElementById('timeslots');
+    const changeTimeBtn = document.getElementById('changeTimeBtn');
     const contactForm = document.getElementById('contactForm');
-    let selectedDate = "", selectedTime = "";
-    const today = new Date();
-    let currentMonth = today.getMonth();
-    let currentYear = today.getFullYear();
 
-    function renderCalendar(month, year) {
-      calendar.innerHTML = "";
-      monthYear.innerText = `${new Date(year, month).toLocaleString('default',{month:'long'})} ${year}`;
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(day => {
-        const dh = document.createElement('div');
-        dh.innerText = day;
-        dh.classList.add('header');
-        calendar.appendChild(dh);
-      });
-      for (let i = 0; i < firstDay; i++) {
-        calendar.appendChild(document.createElement('div'));
-      }
-      for (let d = 1; d <= daysInMonth; d++) {
-        const date = new Date(year, month, d);
-        const dateStr = date.toISOString().split('T')[0];
-        const div = document.createElement('div');
-        div.innerText = d;
-        if (dateStr < today.toISOString().split('T')[0]) {
-          div.style.pointerEvents = 'none';
-          div.style.backgroundColor = '#f5f5f5';
-          div.style.color = '#ccc';
-        }
-        if (dateStr === today.toISOString().split('T')[0]) {
-          div.classList.add('today');
-        }
-        div.addEventListener('click', () => {
-          selectedDate = dateStr;
-          document.querySelectorAll('.calendar div').forEach(cd => cd.classList.remove('selected'));
-          div.classList.add('selected');
-          showTimeSlots(selectedDate);
-        });
-        calendar.appendChild(div);
-      }
-      document.querySelectorAll('#calendarContainer, #timeslots, #contactForm')
-              .forEach(el => { el.style.opacity=1; el.style.transform="translateY(0)"; });
+    // Current date pointer for calendar
+    let currentDate = new Date();
+    // Selected date and time
+    let selectedDate = null;
+    let selectedTime = null;
+
+    // Example booked slots data (in real app, fetched from server)
+    const bookedSlots = {
+      // format: 'YYYY-MM-DD': ['HH:mm', ...]
+      '2025-05-25': ['10:00', '14:00'],
+      '2025-05-28': ['09:00', '12:00', '16:00'],
+    };
+
+    // Time slots available each day (example)
+    const allTimeSlots = [
+      '09:00', '10:00', '11:00', '12:00',
+      '13:00', '14:00', '15:00', '16:00',
+      '17:00'
+    ];
+
+    function formatDate(date) {
+      // Returns 'YYYY-MM-DD'
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
     }
 
-    function showTimeSlots(date) {
-      timeslotsDiv.innerHTML = "";
-      const booked = bookedSlots[date] || [];
-      availableTimes.forEach(time => {
-        const slot = document.createElement('div');
-        slot.classList.add('timeslot', booked.includes(time) ? 'booked' : 'available');
-        slot.innerText = time;
-        slot.addEventListener('click', () => {
-          if (!slot.classList.contains('booked')) {
-            selectedTime = time;
-            timeslotsDiv.innerHTML = `<div>Selected Time: ${selectedTime}</div>`;
-            contactForm.style.display = 'block';
-          }
-        });
-        timeslotsDiv.appendChild(slot);
+    function renderCalendar(date) {
+      calendarEl.innerHTML = '';
+      const year = date.getFullYear();
+      const month = date.getMonth();
+
+      // Set month and year header
+      const options = { month: 'long', year: 'numeric' };
+      monthYearEl.textContent = date.toLocaleDateString(undefined, options);
+
+      // First day of month and number of days
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const numDays = lastDay.getDate();
+      const startDay = firstDay.getDay(); // 0=Sunday
+
+      // Show day names on top
+      const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      dayNames.forEach(day => {
+        const dayNameDiv = document.createElement('div');
+        dayNameDiv.style.fontWeight = '700';
+        dayNameDiv.style.backgroundColor = '#ddd';
+        dayNameDiv.textContent = day;
+        calendarEl.appendChild(dayNameDiv);
       });
+
+      // Blank days before first day
+      for(let i=0; i<startDay; i++) {
+        const emptyDiv = document.createElement('div');
+        emptyDiv.classList.add('disabled');
+        calendarEl.appendChild(emptyDiv);
+      }
+
+      // Days of the month
+      for(let day=1; day<=numDays; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.textContent = day;
+
+        const thisDate = new Date(year, month, day);
+        const isoDate = formatDate(thisDate);
+
+        // Disable past dates
+        if(thisDate < new Date(new Date().setHours(0,0,0,0))) {
+          dayDiv.classList.add('disabled');
+        } else {
+          dayDiv.addEventListener('click', () => {
+            selectDate(thisDate, dayDiv);
+          });
+        }
+
+        // Highlight selected date
+        if(selectedDate && isoDate === formatDate(selectedDate)) {
+          dayDiv.classList.add('selected');
+        }
+
+        calendarEl.appendChild(dayDiv);
+      }
     }
 
-    document.getElementById('nextMonthBtn').addEventListener('click', () => {
-      currentMonth = (currentMonth + 1) % 12;
-      if (currentMonth === 0) currentYear++;
-      renderCalendar(currentMonth, currentYear);
-      document.getElementById('backToTodayBtn').style.display = 'inline-block';
-    });
-    document.getElementById('backToTodayBtn').addEventListener('click', () => {
-      currentMonth = today.getMonth();
-      currentYear = today.getFullYear();
-      renderCalendar(currentMonth, currentYear);
-      document.getElementById('backToTodayBtn').style.display = 'none';
-    });
-    document.getElementById('changeTimeBtn').addEventListener('click', () => {
+    function selectDate(date, dayDiv) {
+      if(dayDiv.classList.contains('disabled')) return;
+
+      selectedDate = date;
+      // Remove selected class from all days
+      document.querySelectorAll('#calendar div').forEach(div => div.classList.remove('selected'));
+      dayDiv.classList.add('selected');
+
+      // Show timeslots for selected date
+      renderTimeSlots(date);
+
+      // Show change time button and hide contact form
+      changeTimeBtn.style.display = 'none';
       contactForm.style.display = 'none';
-      showTimeSlots(selectedDate);
+      selectedTime = null;
+    }
+
+    function renderTimeSlots(date) {
+      timeslotsEl.innerHTML = '';
+      const dateStr = formatDate(date);
+
+      const booked = bookedSlots[dateStr] || [];
+
+      allTimeSlots.forEach(time => {
+        const slot = document.createElement('div');
+        slot.classList.add('timeslot');
+        slot.textContent = time;
+
+        if(booked.includes(time)) {
+          slot.classList.add('disabled');
+        } else {
+          slot.addEventListener('click', () => {
+            selectTime(slot, time);
+          });
+        }
+        timeslotsEl.appendChild(slot);
+      });
+    }
+
+    function selectTime(slotEl, time) {
+      if(slotEl.classList.contains('disabled')) return;
+
+      selectedTime = time;
+      // Remove selected from all
+      document.querySelectorAll('.timeslot').forEach(slot => slot.classList.remove('selected'));
+      slotEl.classList.add('selected');
+
+      // Show change time button
+      changeTimeBtn.style.display = 'block';
+
+      // Show contact form
+      contactForm.style.display = 'block';
+
+      // Scroll to form
+      contactForm.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Event handlers for buttons
+    backToTodayBtn.addEventListener('click', () => {
+      currentDate = new Date();
+      renderCalendar(currentDate);
+      // Clear selection and hide timeslots and form
+      selectedDate = null;
+      selectedTime = null;
+      timeslotsEl.innerHTML = '';
+      changeTimeBtn.style.display = 'none';
+      contactForm.style.display = 'none';
     });
-    document.getElementById('submitBooking').addEventListener('click', () => {
-      const type = document.getElementById('bookingType').value;
-      const name = document.getElementById('fullName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const msg = document.getElementById('message').value.trim();
-      if (!selectedDate || !selectedTime || !type || !name || !email) {
-        alert("Please fill in all required fields and select a date and time.");
+
+    nextMonthBtn.addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      renderCalendar(currentDate);
+      // Clear selection and hide timeslots and form
+      selectedDate = null;
+      selectedTime = null;
+      timeslotsEl.innerHTML = '';
+      changeTimeBtn.style.display = 'none';
+      contactForm.style.display = 'none';
+    });
+
+    changeTimeBtn.addEventListener('click', () => {
+      // Allow user to re-select time
+      changeTimeBtn.style.display = 'none';
+      contactForm.style.display = 'none';
+      selectedTime = null;
+      // Remove selection on time slots
+      document.querySelectorAll('.timeslot').forEach(slot => slot.classList.remove('selected'));
+      // Scroll back to timeslots
+      timeslotsEl.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Handle form submit
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if(!selectedDate || !selectedTime) {
+        alert('Please select a date and time slot first.');
         return;
       }
-      alert(`Booking Confirmed!\n\nName: ${name}\nEmail: ${email}\nDate: ${selectedDate}\nTime: ${selectedTime}\nType: ${type}\nMessage: ${msg}`);
+
+      // Gather form data
+      const formData = {
+        date: formatDate(selectedDate),
+        time: selectedTime,
+        name: contactForm.name.value.trim(),
+        email: contactForm.email.value.trim(),
+        phone: contactForm.phone.value.trim(),
+        message: contactForm.message.value.trim()
+      };
+
+      // Simple validation
+      if(!formData.name || !formData.email || !formData.phone) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      // Here you would send formData to your server or API
+      alert(`Booking confirmed for ${formData.name} on ${formData.date} at ${formData.time}.`);
+
+      // Reset form and selections
+      contactForm.reset();
       contactForm.style.display = 'none';
-      timeslotsDiv.innerHTML = '';
-      document.getElementById('bookingType').value = '';
-      document.getElementById('fullName').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('message').value = '';
-      selectedDate = '';
-      selectedTime = '';
-      renderCalendar(currentMonth, currentYear);
-      document.getElementById('backToTodayBtn').style.display = 'none';
+      changeTimeBtn.style.display = 'none';
+      timeslotsEl.innerHTML = '';
+      selectedDate = null;
+      selectedTime = null;
+      renderCalendar(currentDate);
     });
 
-    // Initial load
-    renderCalendar(currentMonth, currentYear);
+    // Initial render
+    renderCalendar(currentDate);
   </script>
-
-<!-- FOOTER -->
-<div class="footer">
-  <p>&copy; 2025 Botho Hair Boutique. All rights reserved.</p>
-</div>
-
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 Botho Hair Boutique. All rights reserved.</p>
+  </div>
 
 </body>
 </html>
