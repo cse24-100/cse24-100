@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="style.css"rel="stylesheet">
   <title>Booking Page</title>
   <style>
     /* Base styles (your existing ones) */
@@ -16,7 +17,6 @@
       background-color: #f5f5f5;
     }
 
-    /* Navbar */
     .navbar-container {
       display: flex;
       justify-content: space-between;
@@ -24,7 +24,6 @@
       background-color: #000;
       padding: 10px 30px;
       color: white;
-      position: relative;
     }
 
     .navbar-brand {
@@ -32,77 +31,15 @@
       font-weight: bold;
     }
 
-    .navbar-links {
-      display: flex;
-      gap: 20px;
-    }
-
     .navbar-links a {
       color: white;
       text-decoration: none;
+      margin-left: 20px;
       font-size: 18px;
     }
 
     .navbar-links a:hover {
       color: #aaa;
-    }
-
-    /* Hamburger button - hidden on large */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 850px) {
-      .navbar-container {
-        padding: 10px 20px;
-      }
-      .navbar-links {
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background-color: #000;
-        flex-direction: column;
-        width: 200px;
-        padding: 15px;
-        border-radius: 8px;
-        display: none;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-        z-index: 10;
-      }
-      .navbar-links.show {
-        display: flex;
-      }
-      .navbar-links a {
-        margin: 10px 0;
-        font-size: 16px;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-    }
-
-    @media (max-width: 450px) {
-      .navbar-brand {
-        font-size: 18px;
-      }
-      .navbar-links a {
-        font-size: 14px;
-      }
-      h1 {
-        font-size: 28px;
-      }
-      /* Calendar and form adjustments kept as you have */
-      /* ... (rest unchanged for brevity) */
     }
 
     h1 {
@@ -283,28 +220,16 @@
     #nextMonthBtn:hover, #backToTodayBtn:hover {
       background-color: #222;
     }
-	.footer {
-      background-color: #4a4a4a;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      margin-top: 40px;
-    }
   </style>
 </head>
 <body>
   <div class="navbar-container">
     <div class="navbar-brand">Botho Hair Boutique</div>
-    <div class="hamburger" id="hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="navbar-links" id="navbarLinks">
+    <div class="navbar-links">
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
-      <a href="treatment.html">Hair Treatment</a>
-      <a href="products.html">Hair Products</a>
+      <a href="treatment.html"> Hair Treatment</a>
+      <a href="products.html"> Hair Products</a>
       <a href="booking.html">Booking</a>
       <a href="contact.html">Contact</a>
       <a href="feedback.html">Feedback</a>
@@ -335,244 +260,254 @@
   <button id="changeTimeBtn" style="display:none;">Change Time</button>
 
   <form id="contactForm" style="display:none;">
-    <label for="name">Name *</label>
-    <input type="text" id="name" name="name" required />
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Your full name" required />
 
-    <label for="email">Email *</label>
-    <input type="email" id="email" name="email" required />
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required />
 
-    <label for="phone">Phone Number *</label>
-    <input type="tel" id="phone" name="phone" required />
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" placeholder="+1234567890" required />
 
     <label for="message">Additional Message</label>
-    <textarea id="message" name="message"></textarea>
+    <textarea id="message" name="message" placeholder="Any special requests or info..."></textarea>
 
     <button type="submit" id="submitBooking">Confirm Booking</button>
   </form>
-  
-<!-- Footer -->
-<div class="footer">
-  <p>&copy; 2025 Botho Hair Boutique. All rights reserved.</p>
-</div>
 
   <script>
-    // Navbar hamburger toggle
-    const hamburger = document.getElementById('hamburger');
-    const navbarLinks = document.getElementById('navbarLinks');
+    // JavaScript code to generate calendar, timeslots, and handle interactions
 
-    hamburger.addEventListener('click', () => {
-      navbarLinks.classList.toggle('show');
-    });
-
-    // Calendar setup
     const calendarEl = document.getElementById('calendar');
     const monthYearEl = document.getElementById('monthYear');
-    const nextMonthBtn = document.getElementById('nextMonthBtn');
     const backToTodayBtn = document.getElementById('backToTodayBtn');
+    const nextMonthBtn = document.getElementById('nextMonthBtn');
     const timeslotsEl = document.getElementById('timeslots');
-    const contactForm = document.getElementById('contactForm');
     const changeTimeBtn = document.getElementById('changeTimeBtn');
+    const contactForm = document.getElementById('contactForm');
 
+    // Current date pointer for calendar
     let currentDate = new Date();
+    // Selected date and time
     let selectedDate = null;
     let selectedTime = null;
 
-    // Sample booked dates/times (simulate booked slots)
-    // Format: 'YYYY-MM-DD HH:mm'
-    const bookedSlots = [
-      '2025-05-25 09:00',
-      '2025-05-25 10:00',
-      '2025-05-26 13:00',
-      '2025-06-01 11:00',
+    // Example booked slots data (in real app, fetched from server)
+    const bookedSlots = {
+      // format: 'YYYY-MM-DD': ['HH:mm', ...]
+      '2025-05-25': ['10:00', '14:00'],
+      '2025-05-28': ['09:00', '12:00', '16:00'],
+    };
+
+    // Time slots available each day (example)
+    const allTimeSlots = [
+      '09:00', '10:00', '11:00', '12:00',
+      '13:00', '14:00', '15:00', '16:00',
+      '17:00'
     ];
 
-    // Generate calendar for the given month
+    function formatDate(date) {
+      // Returns 'YYYY-MM-DD'
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
     function renderCalendar(date) {
       calendarEl.innerHTML = '';
       const year = date.getFullYear();
       const month = date.getMonth();
 
-      // Show month and year
-      const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-      ];
-      monthYearEl.textContent = `${monthNames[month]} ${year}`;
+      // Set month and year header
+      const options = { month: 'long', year: 'numeric' };
+      monthYearEl.textContent = date.toLocaleDateString(undefined, options);
 
-      // Days of week headers
-      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      // First day of month and number of days
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const numDays = lastDay.getDate();
+      const startDay = firstDay.getDay(); // 0=Sunday
+
+      // Show day names on top
+      const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
       dayNames.forEach(day => {
-        const dayHeader = document.createElement('div');
-        dayHeader.style.fontWeight = 'bold';
-        dayHeader.textContent = day;
-        calendarEl.appendChild(dayHeader);
+        const dayNameDiv = document.createElement('div');
+        dayNameDiv.style.fontWeight = '700';
+        dayNameDiv.style.backgroundColor = '#ddd';
+        dayNameDiv.textContent = day;
+        calendarEl.appendChild(dayNameDiv);
       });
 
-      // First day of month (0=Sun)
-      const firstDay = new Date(year, month, 1).getDay();
-      // Number of days in month
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      // Fill empty slots before first day
-      for (let i = 0; i < firstDay; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.classList.add('disabled');
-        calendarEl.appendChild(emptyCell);
+      // Blank days before first day
+      for(let i=0; i<startDay; i++) {
+        const emptyDiv = document.createElement('div');
+        emptyDiv.classList.add('disabled');
+        calendarEl.appendChild(emptyDiv);
       }
 
-      // Create day cells
-      for (let day = 1; day <= daysInMonth; day++) {
-        const dayCell = document.createElement('div');
-        dayCell.textContent = day;
+      // Days of the month
+      for(let day=1; day<=numDays; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.textContent = day;
 
-        // Disable past dates (including today before current time)
-        const cellDate = new Date(year, month, day);
-        const today = new Date();
-        today.setHours(0,0,0,0);
+        const thisDate = new Date(year, month, day);
+        const isoDate = formatDate(thisDate);
 
-        if (cellDate < today) {
-          dayCell.classList.add('disabled');
+        // Disable past dates
+        if(thisDate < new Date(new Date().setHours(0,0,0,0))) {
+          dayDiv.classList.add('disabled');
+        } else {
+          dayDiv.addEventListener('click', () => {
+            selectDate(thisDate, dayDiv);
+          });
         }
 
-        dayCell.addEventListener('click', () => {
-          if (dayCell.classList.contains('disabled')) return;
+        // Highlight selected date
+        if(selectedDate && isoDate === formatDate(selectedDate)) {
+          dayDiv.classList.add('selected');
+        }
 
-          selectedDate = cellDate;
-          highlightSelectedDate(dayCell);
-          renderTimeslots(cellDate);
-          contactForm.style.display = 'none';
-          changeTimeBtn.style.display = 'none';
-        });
-
-        calendarEl.appendChild(dayCell);
+        calendarEl.appendChild(dayDiv);
       }
     }
 
-    // Highlight selected date on calendar
-    function highlightSelectedDate(selectedCell) {
+    function selectDate(date, dayDiv) {
+      if(dayDiv.classList.contains('disabled')) return;
+
+      selectedDate = date;
+      // Remove selected class from all days
       document.querySelectorAll('#calendar div').forEach(div => div.classList.remove('selected'));
-      selectedCell.classList.add('selected');
+      dayDiv.classList.add('selected');
+
+      // Show timeslots for selected date
+      renderTimeSlots(date);
+
+      // Show change time button and hide contact form
+      changeTimeBtn.style.display = 'none';
+      contactForm.style.display = 'none';
+      selectedTime = null;
     }
 
-    // Generate timeslots for the selected date
-    function renderTimeslots(date) {
-      timeslotsEl.style.display = 'flex';
+    function renderTimeSlots(date) {
       timeslotsEl.innerHTML = '';
+      const dateStr = formatDate(date);
 
-      // Timeslots from 9:00 AM to 5:00 PM every hour
-      const startHour = 9;
-      const endHour = 17;
+      const booked = bookedSlots[dateStr] || [];
 
-      for (let hour = startHour; hour <= endHour; hour++) {
+      allTimeSlots.forEach(time => {
         const slot = document.createElement('div');
         slot.classList.add('timeslot');
+        slot.textContent = time;
 
-        // Format time string
-        const timeString = `${hour.toString().padStart(2,'0')}:00`;
-
-        slot.textContent = timeString;
-
-        // Check if slot is booked
-        const dateString = date.toISOString().split('T')[0];
-        if (bookedSlots.includes(`${dateString} ${timeString}`)) {
+        if(booked.includes(time)) {
           slot.classList.add('disabled');
         } else {
-          // Attach click handler to select time
-          slot.addEventListener('click', () => selectTime(slot, timeString));
+          slot.addEventListener('click', () => {
+            selectTime(slot, time);
+          });
         }
-
         timeslotsEl.appendChild(slot);
-      }
+      });
     }
 
     function selectTime(slotEl, time) {
-      if (slotEl.classList.contains('disabled')) return;
+      if(slotEl.classList.contains('disabled')) return;
 
       selectedTime = time;
-      // Remove selected class from all timeslots
+      // Remove selected from all
       document.querySelectorAll('.timeslot').forEach(slot => slot.classList.remove('selected'));
-      // Add selected class to clicked slot
       slotEl.classList.add('selected');
 
-      // Show contact form and change time button
-      contactForm.style.display = 'block';
+      // Show change time button
       changeTimeBtn.style.display = 'block';
-      // Hide timeslots container
-      timeslotsEl.style.display = 'none';
+
+      // Show contact form
+      contactForm.style.display = 'block';
+
+      // Scroll to form
+      contactForm.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Change time button click handler
-    changeTimeBtn.addEventListener('click', () => {
+    // Event handlers for buttons
+    backToTodayBtn.addEventListener('click', () => {
+      currentDate = new Date();
+      renderCalendar(currentDate);
+      // Clear selection and hide timeslots and form
+      selectedDate = null;
       selectedTime = null;
-      contactForm.style.display = 'none';
+      timeslotsEl.innerHTML = '';
       changeTimeBtn.style.display = 'none';
-      timeslotsEl.style.display = 'flex';
-      // Remove any timeslot selection highlight
-      document.querySelectorAll('.timeslot').forEach(slot => slot.classList.remove('selected'));
+      contactForm.style.display = 'none';
     });
 
-    // Contact form submit handler
+    nextMonthBtn.addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      renderCalendar(currentDate);
+      // Clear selection and hide timeslots and form
+      selectedDate = null;
+      selectedTime = null;
+      timeslotsEl.innerHTML = '';
+      changeTimeBtn.style.display = 'none';
+      contactForm.style.display = 'none';
+    });
+
+    changeTimeBtn.addEventListener('click', () => {
+      // Allow user to re-select time
+      changeTimeBtn.style.display = 'none';
+      contactForm.style.display = 'none';
+      selectedTime = null;
+      // Remove selection on time slots
+      document.querySelectorAll('.timeslot').forEach(slot => slot.classList.remove('selected'));
+      // Scroll back to timeslots
+      timeslotsEl.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Handle form submit
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      if (!selectedDate || !selectedTime) {
-        alert('Please select a date and time slot before submitting.');
+      if(!selectedDate || !selectedTime) {
+        alert('Please select a date and time slot first.');
         return;
       }
 
-      const name = contactForm.name.value.trim();
-      const email = contactForm.email.value.trim();
-      const phone = contactForm.phone.value.trim();
-      const message = contactForm.message.value.trim();
+      // Gather form data
+      const formData = {
+        date: formatDate(selectedDate),
+        time: selectedTime,
+        name: contactForm.name.value.trim(),
+        email: contactForm.email.value.trim(),
+        phone: contactForm.phone.value.trim(),
+        message: contactForm.message.value.trim()
+      };
 
-      if (!name || !email || !phone) {
+      // Simple validation
+      if(!formData.name || !formData.email || !formData.phone) {
         alert('Please fill out all required fields.');
         return;
       }
 
-      // Here you could send data to server via fetch/ajax
-      alert(`Booking confirmed for ${name} on ${selectedDate.toDateString()} at ${selectedTime}.\nThank you!`);
+      // Here you would send formData to your server or API
+      alert(`Booking confirmed for ${formData.name} on ${formData.date} at ${formData.time}.`);
 
-      // Reset form and UI for new booking
+      // Reset form and selections
       contactForm.reset();
       contactForm.style.display = 'none';
       changeTimeBtn.style.display = 'none';
-      timeslotsEl.style.display = 'flex';
-
-      // Clear selections
+      timeslotsEl.innerHTML = '';
       selectedDate = null;
       selectedTime = null;
-      // Clear calendar selection
-      document.querySelectorAll('#calendar div').forEach(div => div.classList.remove('selected'));
-      // Clear timeslot selection
-      document.querySelectorAll('.timeslot').forEach(slot => slot.classList.remove('selected'));
+      renderCalendar(currentDate);
     });
 
-    // Initial render for the current month
+    // Initial render
     renderCalendar(currentDate);
-
-    // Back to Today button
-    backToTodayBtn.addEventListener('click', () => {
-      currentDate = new Date();
-      renderCalendar(currentDate);
-      selectedDate = null;
-      selectedTime = null;
-      contactForm.style.display = 'none';
-      changeTimeBtn.style.display = 'none';
-      timeslotsEl.style.display = 'flex';
-    });
-
-    // Next Month button (advances calendar by 1 month)
-    nextMonthBtn.addEventListener('click', () => {
-      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-      renderCalendar(currentDate);
-      selectedDate = null;
-      selectedTime = null;
-      contactForm.style.display = 'none';
-      changeTimeBtn.style.display = 'none';
-      timeslotsEl.style.display = 'flex';
-    });
   </script>
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 Botho Hair Boutique. All rights reserved.</p>
+  </div>
+
 </body>
 </html>
-
