@@ -1,0 +1,101 @@
+/* Responsive adjustments */
+    @media (max-width: 850px) {
+      /* Navbar stack vertically and center */
+      .navbar-container {
+        flex-direction: column;
+        padding: 10px 20px;
+      }
+      .navbar-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 10px;
+      }
+
+      /* Calendar container and children full width */
+      #calendarContainer, #timeslots, #contactForm {
+        max-width: 100%;
+        padding: 15px;
+        margin: 20px 10px;
+      }
+
+      /* Calendar grid smaller gaps */
+      .calendar {
+        grid-template-columns: repeat(7, 1fr);
+        grid-gap: 5px;
+      }
+      .calendar div {
+        font-size: 14px;
+        padding: 8px 5px;
+      }
+
+      /* Time slots smaller and wrap */
+      #timeslots {
+        justify-content: flex-start;
+        gap: 10px;
+      }
+      .timeslot {
+        padding: 10px 15px;
+        font-size: 14px;
+        margin: 5px 5px;
+      }
+
+      /* Buttons smaller */
+      #submitBooking, #changeTimeBtn, #nextMonthBtn, #backToTodayBtn {
+        font-size: 16px;
+        padding: 10px 15px;
+      }
+
+      /* Form inputs full width with smaller padding */
+      #contactForm input,
+      #contactForm textarea,
+      #contactForm select {
+        font-size: 16px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      /* Navbar brand smaller */
+      .navbar-brand {
+        font-size: 20px;
+      }
+      /* Navbar links smaller */
+      .navbar-links a {
+        font-size: 14px;
+      }
+
+      /* Heading smaller */
+      h1 {
+        font-size: 28px;
+      }
+
+      /* Calendar divs smaller */
+      .calendar div {
+        font-size: 12px;
+        padding: 6px 3px;
+      }
+
+      /* Time slots smaller */
+      .timeslot {
+        padding: 8px 10px;
+        font-size: 12px;
+        margin: 3px 3px;
+      }
+      /* Footer */
+    .footer {
+      background-color: #eaeaea61  ;
+      color: rgba(228, 223, 223, 0.34);
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+      /* Buttons smaller */
+      #submitBooking, #changeTimeBtn, #nextMonthBtn, #backToTodayBtn {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+    }
